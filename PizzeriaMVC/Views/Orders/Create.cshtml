@@ -1,0 +1,59 @@
+﻿@model PizzeriaMVC.Models.CreateOrderModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+@if (TempData["error"] != null)
+{
+    <p class="text-danger">@TempData["error"]</p>
+}
+<h4>CreateOrderModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.OrderRequest.IdItem" class="control-label"></label>
+                <select asp-for="@Model.OrderRequest.IdItem" class="form-control">
+                    @foreach (var type in Model.Items)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.OrderRequest.IdItem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.OrderRequest.IdAttendant" class="control-label"></label>
+                <select asp-for="@Model.OrderRequest.IdAttendant" class="form-control">
+                    @foreach (var type in Model.Attendants)
+                    {
+                        <option value="@type.Id">@type.FirstName @type.LastName</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.OrderRequest.IdAttendant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.OrderRequest.IdTable" class="control-label"></label>
+                <select asp-for="@Model.OrderRequest.IdTable" class="form-control">
+                    @foreach (var type in Model.Tables)
+                    {
+                        <option value="@type.Id">@type.Name - @type.Hall</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.OrderRequest.IdTable" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Go back</a>
+</div>
+
